@@ -1,18 +1,21 @@
-
 import './App.css';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Redirect,
 } from "react-router-dom";
+import Container from './container/TheLayout';
+import Home from "./views/Home";
+import Dashboard from "./views/Dashboard";
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path='/' name="Home" render></Route>
-      </Switch>
+      <Routes>
+        <Route path='/' element={<Container><Home/></Container>}/>
+        <Route path='/Dashboard' element={<Container><Dashboard/></Container>}/>
+      </Routes>
     </Router>
   );
 }
