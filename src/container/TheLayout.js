@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import {createTheme} from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
+import Drawer from '@mui/material/Drawer';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -56,6 +58,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 class Container extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            menuOpen: false
+        }
+    }
+    sidebar = () => {
+        return (
+            <Drawer
+                open={this.state.menuOpen}
+                onClose={() => { this.setState({ menuOpen: false }) }}
+            >
+                <div style={{ width: "200px" }}>
+                    <ListItem button>
+                        <ListItemText primary={"This is a Home"} />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemText primary={"Account"} />
+                    </ListItem>
+                </div>
+            </Drawer>
+        )
     }
     header = () => {
         return (
@@ -63,6 +85,7 @@ class Container extends React.Component {
                 <AppBar position="static" color="transparent" style={{ boxShadow: "none" }}>
                     <Toolbar>
                         <IconButton
+                            onClick={() => { this.setState({ menuOpen: true }) }}
                             size="large"
                             edge="start"
                             color="inherit"
@@ -97,7 +120,7 @@ class Container extends React.Component {
     footer = () => {
         return (
             <div>
-                <Toolbar style={{}}
+                <Toolbar style={{ position: 'relative', backgroundColor: "#grey", color: "white" }}
                 >
                     <h1>Footer</h1>
                 </Toolbar>
@@ -107,9 +130,12 @@ class Container extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div style={{backgroundColor:"linear-gradient(#1e2950,#38848c)"}}>
+                <div style={{ width: "30%" }}>
+                    {this.sidebar()}
+                </div>
                 {this.header()}
-                <div>
+                <div style={{ height: "100vh" }}>
                     {this.props.children}
                 </div>
                 {this.footer()}
