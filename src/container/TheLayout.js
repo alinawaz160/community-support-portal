@@ -144,7 +144,9 @@ class Container extends React.Component {
                         <div className="line h-1 w-6 my-1 bg-white"></div>
                         <div className="line h-1 w-6 my-1 bg-white"></div>
                     </div>
-                    <div className="name text-white font-bold">ALFOUZ</div>
+                    <div className="name text-white font-bold">
+                        ALFOUZ
+                    </div>
                 </div>
                 <div className="joinNow text-white hidden md:block"><a>Join Now</a></div>
                 <div className="services text-white hidden md:block"><a>Services</a></div>
