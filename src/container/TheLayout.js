@@ -12,6 +12,8 @@ import { createTheme } from "@mui/material/styles";
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -81,39 +83,79 @@ class Container extends React.Component {
     }
     header = () => {
         return (
-            <div>
-                <AppBar position="static" color="transparent" style={{ boxShadow: "none" }}>
-                    <Toolbar>
-                        <IconButton
-                            onClick={() => { this.setState({ menuOpen: true }) }}
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                            style={{ color: "black" }}
-                        >
-                            AL FOUZ
-                        </Typography>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Search>
-                    </Toolbar>
-                </AppBar>
+            // <div>
+            //     <AppBar position="static" color="transparent" style={{ boxShadow: "none" }}>
+            //         <Toolbar>
+            //             <IconButton
+            //                 onClick={() => { this.setState({ menuOpen: true }) }}
+            //                 size="large"
+            //                 edge="start"
+            //                 aria-label="open drawer"
+            //                 sx={{ mr: 2 }}
+            //                 style={{color:"white"}}
+            //             >
+            //                 <MenuIcon />
+            //             </IconButton>
+            //             <Typography
+            //                 variant="h6"
+            //                 noWrap
+            //                 component="div"
+            //                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            //                 style={{ color: "white",fontFamily:"sans-serif",fontWeight:"bold" }}
+            //             >
+            //                 ALFOUZ
+            //             </Typography>
+            //             <Box sx={{ display: { xs: 'none', sm: 'block',width:"80%" } }}>
+            //             <nav style={{display:"flex",justifyContent:"space-around"}}>
+            //                 <Button style={{color:"white"}}>
+            //                     Join US
+            //                 </Button>
+            //                 <Button style={{color:"white"}}>
+            //                     Services
+            //                 </Button>
+            //                 <Button style={{color:"white"}}>
+            //                     Sign In
+            //                 </Button>
+            //                 <Button style={{color:"white"}}>
+            //                     About Us
+            //                 </Button>
+            //                 <Button style={{borderRadius:"5",background:"#6494a0",color:"black",fontWeight:"bolder"}}>
+            //                     Donate
+            //                 </Button>
+            //             </nav>
+            //             </Box>
+
+            //             {/* <Search>
+            //                 <SearchIconWrapper>
+            //                     <SearchIcon />
+            //                 </SearchIconWrapper>
+            //                 <StyledInputBase
+            //                     placeholder="Search…"
+            //                     inputProps={{ 'aria-label': 'search' }}
+            //                 />
+            //             </Search> */}
+            //         </Toolbar>
+            //     </AppBar>
+            // </div>
+            <div className="navbar flex  justify-between items-center p-4">
+                <div className="flex justify-center items-center">
+                    <div className="humburger inline-block p-4 cursor-pointer md:hidden">
+                        <div className="line h-1 w-6 my-1 bg-white"></div>
+                        <div className="line h-1 w-6 my-1 bg-white"></div>
+                        <div className="line h-1 w-6 my-1 bg-white"></div>
+                    </div>
+                    <div className="name text-white font-bold">ALFOUZ</div>
+                </div>
+                <div className="joinNow text-white hidden md:block"><a>Join Now</a></div>
+                <div className="services text-white hidden md:block"><a>Services</a></div>
+                <div className="signIn text-white hidden md:block"><a>Sign In</a></div>
+                <div className="aboutUS text-white hidden md:block"><a>About Us</a></div>
+                <div className="donate">
+                    <Button className="button text-black"
+                            style={{background:"#6494a0",color:"black"}}>
+                        Donate
+                    </Button>
+                </div>
             </div>
         )
     }
@@ -130,7 +172,7 @@ class Container extends React.Component {
     }
     render() {
         return (
-            <div style={{backgroundColor:"linear-gradient(#1e2950,#38848c)"}}>
+            <div style={{ background: "linear-gradient(to bottom, #1e2950 0%, #38848c 100%)" }}>
                 <div style={{ width: "30%" }}>
                     {this.sidebar()}
                 </div>

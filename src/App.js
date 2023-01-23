@@ -7,14 +7,14 @@ import {
 } from "react-router-dom";
 import Container from './container/TheLayout';
 import Home from "./views/Home";
-import Dashboard from "./views/Dashboard";
+
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Container><Home/></Container>}/>
-        <Route path='/Dashboard' element={<Container><Dashboard/></Container>}/>
+        {/* <Route path='/Dashboard' element={<Container><Dashboard/></Container>}/> */}
       </Routes>
     </Router>
   );
