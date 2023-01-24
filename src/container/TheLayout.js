@@ -139,24 +139,29 @@ class Container extends React.Component {
             // </div>
             <div className="navbar flex  justify-between items-center p-4">
                 <div className="flex justify-center items-center">
+                    <Button onClick={()=>{ this.setState({menuOpen:true})}}>
                     <div className="humburger inline-block p-4 cursor-pointer md:hidden">
                         <div className="line h-1 w-6 my-1 bg-white"></div>
                         <div className="line h-1 w-6 my-1 bg-white"></div>
                         <div className="line h-1 w-6 my-1 bg-white"></div>
                     </div>
-                    <div className="name text-white font-bold">
+                    </Button>
+                    <div className="name text-white font-bold  text-lg md:text-4xl">
                         ALFOUZ
                     </div>
                 </div>
-                <div className="joinNow text-white hidden md:block"><a>Join Now</a></div>
-                <div className="services text-white hidden md:block"><a>Services</a></div>
-                <div className="signIn text-white hidden md:block"><a>Sign In</a></div>
-                <div className="aboutUS text-white hidden md:block"><a>About Us</a></div>
-                <div className="donate">
-                    <Button className="button text-black"
+                <div></div>
+                <div></div>
+                <div></div>
+                    <div className="joinNow text-white hidden md:block"><a>Join Now</a></div>
+                    <div className="services text-white hidden md:block"><a>Services</a></div>
+                    <div className="signIn text-white hidden md:block"><a>Sign In</a></div>
+                    <div className="aboutUS text-white hidden md:block"><a>About Us</a></div>
+                    <div className="donate">
+                        <Button className="button text-black"
                             style={{background:"#6494a0",color:"black"}}>
-                        Donate
-                    </Button>
+                            Donate
+                        </Button>
                 </div>
             </div>
         )
@@ -179,7 +184,7 @@ class Container extends React.Component {
                     {this.sidebar()}
                 </div>
                 {this.header()}
-                <div style={{ height: "100vh" }}>
+                <div>
                     {this.props.children}
                 </div>
                 {this.footer()}
