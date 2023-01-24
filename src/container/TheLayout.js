@@ -179,7 +179,7 @@ class Container extends React.Component {
     }
     render() {
         return (
-            <div style={{ background: "linear-gradient(to bottom, #1e2950 0%, #38848c 100%)" }}>
+            <div style={{ background: "linear-gradient(to bottom, #1e2950 10%, #38848c 90%)" }}>
                 <div style={{ width: "30%" }}>
                     {this.sidebar()}
                 </div>
