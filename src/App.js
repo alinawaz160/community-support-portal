@@ -3,18 +3,19 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
+  Navigate ,
 } from "react-router-dom";
-import Container from './container/TheLayout';
+import TheLayout from './container/TheLayout';
 import Home from "./views/Home";
+import Login from './views/Login';
 
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Container><Home/></Container>}/>
-        {/* <Route path='/Dashboard' element={<Container><Dashboard/></Container>}/> */}
+        <Route path='/' element={<TheLayout><Home/></TheLayout>}/>
+        <Route path='/Login' element={<TheLayout><Login/></TheLayout>}/>
       </Routes>
     </Router>
   );
