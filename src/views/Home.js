@@ -20,6 +20,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 export default class Home extends React.Component {
+    constructor(){
+        super();
+    }
     render() {
         return (
             <div className="container">

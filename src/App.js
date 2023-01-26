@@ -9,7 +9,6 @@ import TheLayout from './container/TheLayout';
 import Home from "./views/Home";
 import Login from './views/Login';
 
-
 function App() {
   return (
     <Router>

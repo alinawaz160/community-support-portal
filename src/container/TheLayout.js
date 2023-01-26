@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Button } from "@mui/material";
 import { Map } from "@mui/icons-material";
-import TheContent from "./TheContent";
+// import TheContent from "./TheContent";
 import { ToastContainer } from "react-toastify";
 
 class Layout extends React.Component {
@@ -17,7 +17,7 @@ class Layout extends React.Component {
     }
     sidebar = () => {
         return (
-            <Drawer
+            <Drawer className="drawer my-10"
                 open={this.state.menuOpen}
                 onClose={() => { this.setState({ menuOpen: false }) }}
             >
