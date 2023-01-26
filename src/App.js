@@ -8,6 +8,7 @@ import {
 import TheLayout from './container/TheLayout';
 import Home from "./views/Home";
 import Login from './views/Login';
+import SignUp from './views/SignUp';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<TheLayout><Home/></TheLayout>}/>
         <Route path='/Login' element={<TheLayout><Login/></TheLayout>}/>
+        <Route path='/SignUp' element={<TheLayout><SignUp/></TheLayout>}/>
       </Routes>
     </Router>
   );

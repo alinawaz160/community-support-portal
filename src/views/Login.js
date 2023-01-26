@@ -1,9 +1,7 @@
-import { Formik, Form, Field } from 'formik';
-import { TextField, Button } from '@mui/material';
-import { Avatar, Alert, CssBaseline, FormControlLabel, Checkbox, Grid, Box, Typography, Container } from "@mui/material";
-import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { CRow, CCol } from "@coreui/react";
+import { Formik, Form, Field } from 'formik';
+import { TextField, Button, Card, CardContent } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { createTheme } from "@mui/material/styles";
 import { LockOutlined } from '@mui/icons-material';
 
@@ -32,7 +30,6 @@ const useStyles = createTheme((theme) => ({
 }));
 class Login extends React.Component {
 
-    // const [state, setState] = useState({ username: '', password: '' })
     constructor() {
         super();
         this.state = {
@@ -45,50 +42,58 @@ class Login extends React.Component {
         return (
             <div className='p-4 h-[70vh] w-[100%] flex flex-col justify-center items-center'
             >
-                <div>
-                    <LockOutlined color="primary" fontSize='large'/>
-                </div>
-                <Formik className="mx-auto sm:mx-0 sm:my-0" 
-                    initialValues={{ email: '', password: '' }}
-                    onSubmit={(values, { setSubmitting }) => {
-                        // handle form submission here
-                    }}
-                >
+                <Card className='card w-[80%] text-center md:w-[30%]'>
+                    <CardContent>
+                        <div>
+                            <LockOutlined color="primary" fontSize='large' />
+                        </div>
+                        <Formik className="mx-auto sm:mx-0 sm:my-0"
+                            initialValues={{ email: '', password: '' }}
+                            onSubmit={(values, { setSubmitting }) => {
+                                // handle form submission here
+                            }}
+                        >
 
-                    {({ isSubmitting, handleChange, values }) => (
-                        <Form>
-                            <TextField
-                                type="text"
-                                name="userName"
-                                placeholder="User Name*"
-                                onChange={handleChange}
-                                value={values.username}
-                                variant="outlined"
-                                margin="normal"
-                                fullWidth
-                            />
-                            <TextField
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={handleChange}
-                                value={values.password}
-                                variant="outlined"
-                                margin="normal"
-                                fullWidth
-                            />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                disabled={isSubmitting}
-                                fullWidth
-                            >
-                                Log in
-                            </Button>
-                        </Form>
-                    )}
-                </Formik>
+                            {({ isSubmitting, handleChange, values }) => (
+                                <Form>
+                                    <TextField
+                                        size='small'
+                                        type="text"
+                                        name="userName"
+                                        placeholder="User Name*"
+                                        onChange={handleChange}
+                                        value={values.username}
+                                        variant="outlined"
+                                        margin="normal"
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        size='small'
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        onChange={handleChange}
+                                        value={values.password}
+                                        variant="outlined"
+                                        margin="normal"
+                                        fullWidth
+                                    />
+                                    <Button
+                                        type="submit"
+                                        size='small'
+                                        style={{ width: "50%", backgroundColor: "#1e2950" }}
+                                        variant="contained"
+                                        color="primary"
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                    >
+                                        Log in
+                                    </Button>
+                                </Form>
+                            )}
+                        </Formik>
+                    </CardContent>
+                </Card>
             </div>
         );
 
