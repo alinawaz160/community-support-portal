@@ -1,8 +1,8 @@
-import { Dashboard } from "@mui/icons-material";
-import { Button, Drawer, ListItem } from "@mui/material";
+import { ArrowRight, Dashboard } from "@mui/icons-material";
+import { Button, Drawer, IconButton, ListItem, Tooltip } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import siteLogo from "../assets/siteLogo.png"
+import siteLogo from "../assets/sideLogo.png"
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 class Layout2 extends React.Component {
@@ -27,8 +27,41 @@ class Layout2 extends React.Component {
                         MENU
                     </div>
                 </div>
-                <div className="user">
-                    <AccountCircleRoundedIcon />
+                <div className="user flex flex-row justify-center items-center">
+                    <Tooltip title="User">
+                        <IconButton
+                            size="large"
+                            sx={{
+                                '& svg': {
+                                    color: 'rgba(255,255,255,0.8)',
+                                    transition: '0.2s',
+                                    transform: 'translateX(0) rotate(0)',
+                                },
+                                '&:hover, &:focus': {
+                                    bgcolor: 'unset',
+                                    '& svg:first-of-type': {
+                                        transform: 'translateX(-4px) rotate(-20deg)',
+                                    },
+                                    '& svg:last-of-type': {
+                                        right: 0,
+                                        opacity: 1,
+                                    },
+                                },
+                                '&:after': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    height: '80%',
+                                    display: 'block',
+                                    left: 0,
+                                    width: '1px',
+                                    bgcolor: 'divider',
+                                },
+                            }}
+                        >
+                            <AccountCircleRoundedIcon />
+                            <ArrowRight sx={{ position: 'absolute', right: 4, opacity: 0 }} />
+                        </IconButton>
+                    </Tooltip>
                     <div>Admin</div>
                 </div>
             </div>
@@ -38,18 +71,18 @@ class Layout2 extends React.Component {
         return (
             <Drawer
                 open={this.state.menu}
-                onAbort={()=>this.setState({menu:false})}
+                onClose={() => { this.setState({ menu: false }) }}
             >
-                <div style={{ width: "200px" }}>
-                    <div>
+                <div style={{ background: "linear-gradient(to bottom, #1e2950 10%, #fff 90%)",width: "300px", display: "flex", flexDirection: "column", justifyContent: "space-between", textAlign: "center" }}>
+                    <div className="sideBar flex flex-row  items-center h-[6rem] m-10">
                         <div>
-                            <img src={siteLogo} />
+                            <img src={siteLogo} className="image md:w-full" />
                         </div>
                         <div>
-                            <h2>ALFOUZ</h2>
+                            <h1 className="heading font-bold md:w-full">ALFOUZ</h1>
                         </div>
                     </div>
-                    <ListItem button>
+                    <ListItem>
                         <div><Link to={"/Dashboard"}>Dashboard</Link></div>
                     </ListItem>
                     <ListItem >
@@ -67,8 +100,8 @@ class Layout2 extends React.Component {
     }
     render() {
         return (
-            <div style={{ background: "linear-gradient(to bottom, #1e2950 10%, #fff 90%)" }}>
-                <div style={{ width: "30%" }}>
+            <div style={{ background: "linear-gradient(to bottom, #1e2950 0%, #fff 100%)" }}>
+                <div style={{ width: "30%"}}>
                     {this.sidebar()}
                 </div>
                 {this.header()}

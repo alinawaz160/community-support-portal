@@ -52,7 +52,7 @@ class Layout extends React.Component {
                 <div></div>
                 <div className="joinNow text-white hidden md:block"><Link to={"/"}>Home</Link></div>
                 <div className="joinNow text-white hidden md:block"><Link to={"/SignUp"}>Join Now</Link></div>
-                <div className="services text-white hidden md:block"><Link to={"#service"}>Service</Link></div>
+                <div className="services text-white hidden md:block"><Link to={`#service`}>Service</Link></div>
                 <div className="signIn text-white hidden md:block"><Link to={"/Login"}>Sign In</Link></div>
                 <div className="aboutUS text-white hidden md:block"><a>About Us</a></div>
                 <div className="donate">

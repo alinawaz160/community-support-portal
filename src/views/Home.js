@@ -80,9 +80,9 @@ export default class Home extends React.Component {
                     </div>
                 </div>
 
-                <div className="heading text-center my-10">
+                <div className="heading text-center my-10" id="service">
                     <h1>
-                        <span className="partner font-bold text-[#3be7e7] text-2xl md:text-4xl" id="service">SERVICES</span>
+                        <span className="partner font-bold text-[#3be7e7] text-2xl md:text-4xl" >SERVICES</span>
                     </h1>
                     <h3 className="h3 text-white">The Spirit of All Religion is to serve humanity</h3>
                 </div>
