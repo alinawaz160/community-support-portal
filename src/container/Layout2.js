@@ -62,7 +62,7 @@ class Layout2 extends React.Component {
                             <ArrowRight sx={{ position: 'absolute', right: 4, opacity: 0 }} />
                         </IconButton>
                     </Tooltip>
-                    <div>Admin</div>
+                    <div className="txt text-white">Admin</div>
                 </div>
             </div>
         )
@@ -89,24 +89,30 @@ class Layout2 extends React.Component {
                         <div><Link to={"/Projects"}>Project</Link></div>
                     </ListItem>
                     <ListItem >
-                        <div><Link to={"/Projects"}>Volunteers</Link></div>
+                        <div><Link to={"/Volunteers"}>Volunteers</Link></div>
                     </ListItem>
                     <ListItem>
-                        <div><Link to={"/Projects"}>NGO's</Link></div>
+                        <div><Link to={"/Ngo"}>NGO's</Link></div>
                     </ListItem>
+                    <ListItem>
+                    <div><Link to={"/"}>Log Out</Link></div>
+                </ListItem>
                 </div>
             </Drawer>
         )
     }
     render() {
         return (
-            <div style={{ background: "linear-gradient(to bottom, #1e2950 0%, #fff 100%)" }}>
+            <div style={{height:"100vh", background: "linear-gradient(to bottom, #1e2950 0%, #38848c 100%)" }}>
                 <div style={{ width: "30%"}}>
                     {this.sidebar()}
                 </div>
                 {this.header()}
                 <div>
                     {this.props.children}
+                </div>
+                <div>
+                    {this.fo}
                 </div>
             </div>
         );

@@ -8,6 +8,7 @@ import { Map } from "@mui/icons-material";
 // import TheContent from "./TheContent";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
+import siteLogo from "../assets/sideLogo.png";
 
 class Layout extends React.Component {
     constructor(props) {
@@ -71,6 +72,14 @@ class Layout extends React.Component {
                 onClose={() => { this.setState({ menuOpen: false }) }}
             >
                 <div style={{ width: "200px" }}>
+                    <div className="sideBar flex flex-row  items-center h-[6rem] m-10">
+                        <div>
+                            <img src={siteLogo} className="image md:w-full" />
+                        </div>
+                        <div>
+                            <h1 className="heading font-bold md:w-full">ALFOUZ</h1>
+                        </div>
+                    </div>
                     <ListItem>
                         <div><Link to={"/SignUp"}>Join Now</Link></div>
                     </ListItem>
@@ -150,11 +159,11 @@ class Layout extends React.Component {
     render() {
         return (
             <div style={{ background: "linear-gradient(to bottom, #1e2950 10%, #38848c 90%)" }}>
-                <div style={{ width: "30%"}}>
+                <div style={{ width: "30%" }}>
                     {this.sidebar()}
                 </div>
                 {this.header()}
-                <div>
+                <div className="content mb-10">
                     {this.props.children}
                 </div>
                 {this.footer()}

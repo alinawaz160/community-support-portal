@@ -78,17 +78,19 @@ class Login extends React.Component {
                                         margin="normal"
                                         fullWidth
                                     />
-                                    <Button
-                                        type="submit"
-                                        size='small'
-                                        style={{ width: "50%", backgroundColor: "#1e2950" }}
-                                        variant="contained"
-                                        color="primary"
-                                        disabled={isSubmitting}
-                                        fullWidth
-                                    >
-                                        Log in
-                                    </Button>
+                                    <Link
+                                        to={"/Dashboard"}>
+                                        <Button
+                                            type="submit"
+                                            size='small'
+                                            style={{ width: "50%", backgroundColor: "#1e2950" }}
+                                            variant="contained"
+                                            color="primary"
+                                            disabled={isSubmitting}
+                                            fullWidth
+                                        >
+                                            Log in
+                                        </Button></Link>
                                 </Form>
                             )}
                         </Formik>

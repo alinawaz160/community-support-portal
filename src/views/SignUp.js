@@ -177,7 +177,7 @@ class SignUp extends React.Component {
                                             disabled={isSubmitting}
                                             fullWidth
                                         >
-                                            Log in
+                                            Sign Up
                                         </Button>
                                     </Form>
 
