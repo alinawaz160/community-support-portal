@@ -2,6 +2,11 @@
   "name": "community-support-portal",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/register": {
+      "target": "http://localhost:3001"
+    }
+  },
   "dependencies": {
     "@ant-design/pro-form": "^2.5.4",
     "@ant-design/pro-table": "^3.2.12",
@@ -14,6 +19,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.1.6",
+    "axios": "^1.2.6",
     "formik": "^2.2.9",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
@@ -24,7 +30,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^7.0.3",
     "react-window": "^1.8.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
