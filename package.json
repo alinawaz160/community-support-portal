@@ -2,11 +2,7 @@
   "name": "community-support-portal",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/register": {
-      "target": "http://localhost:3001"
-    }
-  },
+  "proxy": "http://localhost:3001", 
   "dependencies": {
     "@ant-design/pro-form": "^2.5.4",
     "@ant-design/pro-table": "^3.2.12",

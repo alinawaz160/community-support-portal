@@ -11,11 +11,10 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import * as Yup from 'yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 function SignUp() {
 
-    const history = useNavigate ();
+    const history = useNavigate();
 
     var formik = useFormik({
         initialValues: {
@@ -28,7 +27,7 @@ function SignUp() {
         },
         onSubmit: async(values) => {
             try{
-                const res = await axios.fetch('/register' ,{
+                const res = await fetch('/register' ,{
                     method:"POST",
                     headers:{
                         "Content-Type" : "application/json"
@@ -38,8 +37,7 @@ function SignUp() {
                         email: values.email,
                         password: values.password,
                         phone: values.phone,
-                        address: values.address,
-                        confirmPassword: values.confirmPasswordvalues
+                        address: values.address
                     })
                 })
 
@@ -47,7 +45,7 @@ function SignUp() {
                     window.alert("Already Used Details");
                 }else {
                     window.alert("Registered Successfully");
-                    history.pushState("/login");
+                    history.push("/Login");
                 }
             }
             catch(error){
