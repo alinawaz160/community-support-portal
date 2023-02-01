@@ -11,6 +11,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import * as Yup from 'yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {useNavigate } from "react-router-dom";
+import { message } from 'antd';
 
 function SignUp() {
 
@@ -42,10 +43,9 @@ function SignUp() {
                 })
 
                 if(res.status === 400 || !res){
-                    window.alert("Already Used Details");
+                    message.error("Already used Credentials")
                 }else {
-                    window.alert("Registered Successfully");
-                    history.push("/Login");
+                    message.success("Registered Successfully");
                 }
             }
             catch(error){
