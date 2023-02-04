@@ -26,7 +26,7 @@ function SignUp() {
             password: "",
             confirmPassword: "",
         },
-        onSubmit: async(values) => {
+        onSubmit: async(values,{resetForm}) => {
             try{
                 const res = await fetch('/register' ,{
                     method:"POST",
@@ -38,12 +38,14 @@ function SignUp() {
                         email: values.email,
                         password: values.password,
                         phone: values.phone,
-                        address: values.address
+                        address: values.address,
+                        confirmPassword: values.confirmPassword,
                     })
                 })
 
                 if(res.status === 400 || !res){
                     message.error("Already used Credentials")
+                    resetForm();
                 }else {
                     message.success("Registered Successfully");
                 }

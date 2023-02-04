@@ -4,11 +4,9 @@ import { TextField, Button, Card, CardContent } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { createTheme } from "@mui/material/styles";
 import { LockOutlined } from '@mui/icons-material';
+import { message } from 'antd';
+import {useNavigate} from "react-router-dom";
 
-
-function doSubmit(data) {
-
-}
 const useStyles = createTheme((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -28,17 +26,11 @@ const useStyles = createTheme((theme) => ({
         margin: 0,
     },
 }));
-class Login extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            username: "",
-            password: "",
-        }
-    }
-    render() {
-        const { classes } = useStyles;
+function Login() {
+
+        const classes  = useStyles();
+        const history = useNavigate();
         return (
             <div className='p-4 h-[70vh] w-[100%] flex flex-col justify-center items-center'
             >
@@ -49,8 +41,29 @@ class Login extends React.Component {
                         </div>
                         <Formik className="mx-auto sm:mx-0 sm:my-0"
                             initialValues={{ email: '', password: '' }}
-                            onSubmit={(values, { setSubmitting }) => {
-                                // handle form submission here
+                            onSubmit={async (values, { setSubmitting }) => {
+                                try {
+                                    const responce = await fetch('/login', {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            email: values.email,
+                                            password: values.password
+                                        })
+                                    })
+                                    if (responce.status === 400 || !responce) {
+                                        message.error("Invalid Credentials")
+                                    }
+                                    else {
+                                        message.success("Login Successfull");
+                                        window.location.reload();
+                                        history.pushState('/');
+                                    }
+                                } catch (error) {
+                                    console.log(error);
+                                }
                             }}
                         >
 
@@ -59,10 +72,10 @@ class Login extends React.Component {
                                     <TextField
                                         size='small'
                                         type="text"
-                                        name="userName"
-                                        placeholder="User Name*"
+                                        name="email"
+                                        placeholder="Your email*"
                                         onChange={handleChange}
-                                        value={values.username}
+                                        value={values.email}
                                         variant="outlined"
                                         margin="normal"
                                         fullWidth
@@ -78,19 +91,17 @@ class Login extends React.Component {
                                         margin="normal"
                                         fullWidth
                                     />
-                                    <Link
-                                        to={"/Dashboard"}>
-                                        <Button
-                                            type="submit"
-                                            size='small'
-                                            style={{ width: "50%", backgroundColor: "#1e2950" }}
-                                            variant="contained"
-                                            color="primary"
-                                            disabled={isSubmitting}
-                                            fullWidth
-                                        >
-                                            Log in
-                                        </Button></Link>
+                                    <Button
+                                        type="submit"
+                                        size='small'
+                                        style={{ width: "50%", backgroundColor: "#1e2950" }}
+                                        variant="contained"
+                                        color="primary"
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                    >
+                                        Log in
+                                    </Button>
                                 </Form>
                             )}
                         </Formik>
@@ -98,7 +109,5 @@ class Login extends React.Component {
                 </Card>
             </div>
         );
-
-    }
 }
 export default Login;

@@ -95,7 +95,7 @@ class Layout2 extends React.Component {
                         <div><Link to={"/Ngo"}>NGO's</Link></div>
                     </ListItem>
                     <ListItem>
-                    <div><Link to={"/"}>Log Out</Link></div>
+                    <div><Link to={"/Logout"}>Log Out</Link></div>
                 </ListItem>
                 </div>
             </Drawer>

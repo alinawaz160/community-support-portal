@@ -155,8 +155,10 @@ function Project() {
           }}
           request={
             async (params, sort, filter) =>{
-              let url = "http://localhost:3001";
-              const res = await axios.get(url+'/getProjects')
+              const res = await fetch('/getProjects',{
+                method:"GET",
+                headers:"application/json"
+              })
               console.log(JSON.parse(res));
               return {
                 data:[{...res}],
