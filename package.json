@@ -2,7 +2,7 @@
   "name": "community-support-portal",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001", 
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@ant-design/pro-form": "^2.5.4",
     "@ant-design/pro-table": "^3.2.12",
@@ -17,6 +17,7 @@
     "antd": "^5.1.6",
     "axios": "^1.2.6",
     "formik": "^2.2.9",
+    "moment": "^2.29.4",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-burger-menu": "^2.7.1",
