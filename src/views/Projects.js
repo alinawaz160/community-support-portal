@@ -45,6 +45,19 @@ function Project() {
     },
   };
 
+  const handleDelete = async (id) => {
+    console.log("Id:",id)
+    const response = await fetch(`deleteProject/${id}`, {
+      method: 'DELETE',
+    });
+  
+    if (response.ok) {
+      message.success('Project deleted successfully');
+    } else {
+      message.error('Failed to delete project');
+    }
+  }
+
   const handleAdd = async (data, imageFile) => {
     console.log("Adding Project");
     const formData = new FormData();
@@ -92,7 +105,7 @@ function Project() {
     {
       title: "Uploaded ON",
       dataIndex: "uploadDate",
-      render:(text , record , _,action)=>moment(record.uploadDate).format('MMMM D, YYYY'),
+      render: (text, record, _, action) => moment(record.uploadDate).format('MMMM D, YYYY'),
     },
     {
       title: "Description",
@@ -132,12 +145,18 @@ function Project() {
       title: "Options",
       dataIndex: "option",
       valueType: "option",
-      render: (_, record) => [
-        <IconButton>
-          <DeleteOutlineRounded />
-        </IconButton>
-      ],
-    },
+      render: (_, record) => {
+        return [
+          <IconButton
+            onClick={() => {
+              handleDelete(record._id);
+            }}
+          >
+            <DeleteOutlineRounded />
+          </IconButton >
+        ];
+      }
+    }
   ]
 
   return (

@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import { IconButton } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { message } from "antd";
 
 export default function Volunteer() {
 
@@ -20,6 +21,9 @@ export default function Volunteer() {
                 options: (
                     <IconButton
                         variant="outlined"
+                        onClick={() => {
+                            handleDelete(volunteer._id)
+                        }}
                     >
                         <DeleteOutlineOutlinedIcon />
                     </IconButton>
@@ -29,7 +33,19 @@ export default function Volunteer() {
         fetchData();
     }, []);
 
+    const handleDelete = async (id) => {
+        console.log("Id:", id)
+        const response = await fetch(`deleteVolunteer/${id}`, {
+            method: 'DELETE',
+        });
 
+        if (response.ok) {
+            message.success('Volunteer deleted successfully');
+            window.location.reload();
+        } else {
+            message.error('Failed to delete project');
+        }
+    }
     const options = {
         download: false,
         print: false,
