@@ -9,6 +9,20 @@ export default function Volunteer() {
 
     const [data, setData] = useState([]);
 
+    const handleDelete = async (id) => {
+        console.log("Id:", id);
+        const response = await fetch(`deleteVolunteer/${id}`, {
+          method: 'DELETE',
+        });
+      
+        if (response.ok) {
+          message.success('Volunteer deleted successfully');
+          setData(prevData => prevData.filter(volunteer => volunteer.id !== id));
+        } else {
+          message.error('Failed to delete project');
+        }
+      };
+      
     useEffect(() => {
         const fetchData = async () => {
             let response = await fetch('/getVolunteers', {
@@ -21,8 +35,9 @@ export default function Volunteer() {
                 options: (
                     <IconButton
                         variant="outlined"
-                        onClick={() => {
-                            handleDelete(volunteer._id)
+                        onClick={(params) => {
+                            console.log();
+                            handleDelete(volunteer._id);
                         }}
                     >
                         <DeleteOutlineOutlinedIcon />
@@ -32,20 +47,6 @@ export default function Volunteer() {
         }
         fetchData();
     }, []);
-
-    const handleDelete = async (id) => {
-        console.log("Id:", id)
-        const response = await fetch(`deleteVolunteer/${id}`, {
-            method: 'DELETE',
-        });
-
-        if (response.ok) {
-            message.success('Volunteer deleted successfully');
-            window.location.reload();
-        } else {
-            message.error('Failed to delete project');
-        }
-    }
     const options = {
         download: false,
         print: false,

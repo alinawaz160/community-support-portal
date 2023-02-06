@@ -27,7 +27,7 @@ function Logout(){
         }
     }
     useEffect(()=>{
-        Logout();
+        logout();
     },[])
     
     return(

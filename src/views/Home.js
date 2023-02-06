@@ -18,6 +18,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import ImageSlider from "../components/ImageSlider";
 
 export default class Home extends React.Component {
     constructor(){
@@ -26,7 +27,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className="image flex flex-col justify-center items-center w-[100%]">
+                {/* <div className="image flex flex-col justify-center items-center w-[100%]">
                     <img className="image md:auto rounded-2xl w-[70%]" src={Image1} />
                     <div className="top-left md:absolute top-15 left-[12rem] md:basline">
                         <h1 className="text-2xl md:text-4xl md:items-left md:w-10 mx-2 text-white font-bold">Let's Rebuild Pakistan</h1>
@@ -37,7 +38,8 @@ export default class Home extends React.Component {
                             </Button>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <ImageSlider/>
                 <div className="heading text-center my-10">
                     <h1>
                         <span className="partner font-bold text-[#3be7e7] text-2xl md:text-4xl">PARTNER</span>

@@ -29,7 +29,6 @@ const useStyles = createTheme((theme) => ({
 
 function Login() {
 
-        const classes  = useStyles();
         const history = useNavigate();
         return (
             <div className='p-4 h-[70vh] w-[100%] flex flex-col justify-center items-center'

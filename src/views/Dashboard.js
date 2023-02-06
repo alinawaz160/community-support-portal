@@ -8,11 +8,10 @@ import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 
 
-function renderRow(props) {
-    const { index, style } = props;
-
+const renderRow = (props) => (index, style) => {
+    console.log("data", props);
     return (
-        <ListItem 
+        <ListItem
             style={style}
             key={index}
             component="div"
@@ -27,14 +26,59 @@ function renderRow(props) {
                 </div>
             }
         >
-            <ListItemText primary={`Item ${index + 1}`} />
+            <ListItemText>{props}</ListItemText>
+        </ListItem>
+    );
+}
+const renderRowJoin = (props) => (index, style) => {
+    return (
+        <ListItem
+            style={style}
+            key={index}
+            component="div"
+            secondaryAction={
+                <div>
+                    <Button color="primary" style={{ padding: "10px" }}>
+                        Accept
+                    </Button>
+                    <Button color="error" style={{ padding: "10px" }}>
+                        Reject
+                    </Button>
+                </div>
+            }
+        >
+            <ListItemText>{props}</ListItemText>
         </ListItem>
     );
 }
 class Dashboard extends React.Component {
     constructor() {
         super();
+        this.state = {
+            signUpRequests: [],
+            projectRequests: [],
+        }
     }
+    componentDidMount() {
+        this.fetchData();
+    }
+    fetchData = async () => {
+        try {
+            const response = await fetch('/getProjects', {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            const data = await response.json();
+            this.setState({ projectRequests: data });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+
     render() {
         return (
             <div className="container">
@@ -127,20 +171,40 @@ class Dashboard extends React.Component {
                         </Card>
                     </div>
                 </div>
-                <div className="requests flex justify-center items-center">
-                    <div className="w-full md:w-1/2 p-3">
+                <div className="requests flex justify-around items-center w-full">
+                    <div className="w-full md:w-1/2  ml-5 mr-5">
                         <Card style={{ borderRadius: "15px" }}>
                             <CardContent>
                                 <div>
-                                    <div className="txt text-center font-bold"><h1>Requests</h1></div>
+                                    <div className="txt text-center font-bold"><h1>Join Requests</h1></div>
+                                    <div>
+                                        <FixedSizeList
+                                            color={"white"}
+                                            height={200}
+                                            itemSize={30}
+                                            itemCount={this.state.signUpRequests.length}
+                                            overscanCount={5}                                        >
+                                            {renderRow(this.state.projects)}
+                                        </FixedSizeList>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    <div className="w-full md:w-1/2 ml-5">
+                        <Card style={{ borderRadius: "15px" }}>
+                            <CardContent>
+                                <div>
+                                    <div className="txt text-center font-bold"><h1>Project Requests</h1></div>
                                     <div>
                                         <FixedSizeList
                                             color={"white"}
                                             height={200}
                                             itemSize={26}
-                                            itemCount={200}
+                                            itemCount={5}
                                             overscanCount={5}                                        >
-                                            {renderRow}
+                                            {renderRowJoin}
                                         </FixedSizeList>
                                     </div>
                                 </div>

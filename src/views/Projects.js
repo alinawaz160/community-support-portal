@@ -171,17 +171,6 @@ function Project() {
             labelWidth: 120,
           }}
           request={
-<<<<<<< HEAD
-            async (params, sort, filter) =>{
-              const res = await fetch('/getProjects',{
-                method:"GET",
-                headers:"application/json"
-              })
-              console.log(JSON.parse(res));
-              return {
-                data:[{...res}],
-                success: res.ok,
-=======
             async (params, sort, filter) => {
               try {
                 const response = await fetch('/getProjects', {
@@ -200,7 +189,6 @@ function Project() {
                   data: [],
                   success: false
                 };
->>>>>>> 1f6e2f1782261d7a9f0ce616d934ca3b4fdfd918
               }
             }
           }

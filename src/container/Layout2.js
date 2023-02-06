@@ -103,7 +103,7 @@ class Layout2 extends React.Component {
     }
     render() {
         return (
-            <div style={{height:"100vh", background: "linear-gradient(to bottom, #1e2950 0%, #38848c 100%)" }}>
+            <div style={{height:"200vh", background: "linear-gradient(to bottom, #1e2950 0%, #38848c 100%)" }}>
                 <div style={{ width: "30%"}}>
                     {this.sidebar()}
                 </div>
