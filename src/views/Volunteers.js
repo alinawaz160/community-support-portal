@@ -1,10 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { IconButton } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { message } from "antd";
 
 export default function Volunteer() {
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let response = await fetch('/getVolunteers', {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            })
+            const json = await response.json();
+            setData(json.map(volunteer => ({
+                ...volunteer,
+                options: (
+                    <IconButton
+                        variant="outlined"
+                        onClick={() => {
+                            handleDelete(volunteer._id)
+                        }}
+                    >
+                        <DeleteOutlineOutlinedIcon />
+                    </IconButton>
+                ),
+            })));
+        }
+        fetchData();
+    }, []);
+
+    const handleDelete = async (id) => {
+        console.log("Id:", id)
+        const response = await fetch(`deleteVolunteer/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            message.success('Volunteer deleted successfully');
+            window.location.reload();
+        } else {
+            message.error('Failed to delete project');
+        }
+    }
     const options = {
         download: false,
         print: false,
@@ -21,65 +62,27 @@ export default function Volunteer() {
     const columns = [
         {
             label: "Name",
-            name: "name"
+            name: "fullname"
         },
         {
-            label: "Company",
-            name: "company"
+            label: "Address",
+            name: "address"
         },
         {
-            label: "City",
-            name: "city"
+            label: "Phone",
+            name: "phone"
         },
         {
-            label: "State",
-            name: "state"
+            label: "Email",
+            name: "email"
         },
         {
-            label: "Delete",
-            name: "delete",
-        }
-    ];
-    const initialData = [
-        {
-            name: "Raja",
-            company: "Test Corp1",
-            city: "Denmark",
-            state: "NY",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
+            label: "Quality Points",
+            name: "qualityPoints",
         },
         {
-            name: "Joe James2",
-            company: "Test Corp2",
-            city: "Karachi",
-            state: "NS",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
-        },
-        {
-            id: 2,
-            name: "Joe James3",
-            company: "Test Corp3",
-            city: "Lahore",
-            state: "NA",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
+            label: "Options",
+            name: "options",
         }
     ];
     return (
@@ -87,8 +90,8 @@ export default function Volunteer() {
         <div>
             <MUIDataTable
                 title={"Volunteer List"}
-                data={initialData}
                 columns={columns}
+                data={data}
                 options={options}
             />
         </div>

@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { IconButton } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 export default function NGO() {
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let response = await fetch('/getNGO', {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            })
+            const json = await response.json();
+            setData(json.map(ngo => ({
+                ...ngo,
+                options: (
+                    <IconButton
+                        variant="outlined"
+                    >
+                        <DeleteOutlineOutlinedIcon />
+                    </IconButton>
+                ),
+            })));
+        }
+        fetchData();
+    }, []);
+
+
     const options = {
         download: false,
         print: false,
@@ -21,74 +46,36 @@ export default function NGO() {
     const columns = [
         {
             label: "Name",
-            name: "name"
+            name: "fullname"
         },
         {
-            label: "Company",
-            name: "company"
+            label: "Address",
+            name: "address"
         },
         {
-            label: "City",
-            name: "city"
+            label: "Phone",
+            name: "phone"
         },
         {
-            label: "State",
-            name: "state"
+            label: "Email",
+            name: "email"
         },
         {
-            label: "Delete",
-            name: "delete",
-        }
-    ];
-    const initialData = [
-        {
-            name: "Raja",
-            company: "Test Corp1",
-            city: "Denmark",
-            state: "NY",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
+            label: "Quality Points",
+            name: "qualityPoints",
         },
         {
-            name: "Joe James2",
-            company: "Test Corp2",
-            city: "Karachi",
-            state: "NS",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
-        },
-        {
-            id: 2,
-            name: "Joe James3",
-            company: "Test Corp3",
-            city: "Lahore",
-            state: "NA",
-            delete: (
-                <IconButton
-                    variant="outlined"
-                >
-                    <DeleteOutlineOutlinedIcon></DeleteOutlineOutlinedIcon>
-                </IconButton>
-            ),
+            label: "Options",
+            name: "options",
         }
     ];
     return (
 
         <div>
             <MUIDataTable
-                title={"NGO's List"}
-                data={initialData}
+                title={"Volunteer List"}
                 columns={columns}
+                data={data}
                 options={options}
             />
         </div>
