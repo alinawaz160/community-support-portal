@@ -4,7 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Button } from "@mui/material";
-import { Map } from "@mui/icons-material";
+import Map from "../components/Map";
 // import TheContent from "./TheContent";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -141,12 +141,11 @@ class Layout extends React.Component {
                                 </div>
                                 <div className="para">
                                     <Map
-                                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"
-                                        loadingElement={<div style={{ height: `100%` }} />}
-                                        containerElement={<div style={{ height: `400px` }} />}
-                                        mapElement={<div style={{ height: `100%` }} />}
+                                        // googleMapURL="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3402.2731434817874!2d74.32376071519845!3d31.489175155832278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391905fa216bbbb1%3A0x60c26259d0e6495a!2sBank%20square%20Market%20Modal%20Town!5e0!3m2!1sen!2s!4v1610690802988!5m2!1sen!2s"
+                                        // loadingElement={<div style={{ height: `100%` }} />}
+                                        // containerElement={<div style={{ height: `400px` }} />}
+                                        // mapElement={<div style={{ height: `100%` }} />}
                                     />
-
                                 </div>
                             </div>
                         </div>
