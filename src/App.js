@@ -23,37 +23,35 @@ function App() {
   const [auth, setauth] = useState(true);
   const [auth1, setauth1] = useState(false);
 
-  // const isLoggedIn = async() => {
-  //   try {
-  //     const res = await fetch('/auth' , {
-  //       method: 'GET',
-  //       headers :{
-  //         Accept :"application/json",
-  //         "Content-Type" : "application/json"
-  //       },
-  //       credentials:"include",  
-  //     });
-  //     if(res === 200){
-  //       setauth(true);
-  //       setauth(false);
-  //     }
-  //     if(res === 401 || !res){
-  //       setauth(false);
-  //       setauth(true);
-  //     }
-  //   } catch (error) {
+  const isLoggedIn = async() => {
+    try {
+      const res = await fetch('/auth' , {
+        method: 'GET',
+        headers :{
+          Accept :"application/json",
+          "Content-Type" : "application/json"
+        },
+        credentials:"include",  
+      });
+      if(res === 200){
+        setauth(true);
+      }
+      if(res === 401 || !res){
+        setauth(false);
+      }
+    } catch (error) {
       
-  //   }
-  // }
+    }
+  }
 
-  //   useEffect(() => {
-  //     isLoggedIn();
-  //   }, [])
+    useEffect(() => {
+      isLoggedIn();
+    }, [])
   return (
     <Router>
       <Routes>
         <Route path='/' element={<TheLayout><Home /></TheLayout>} />
-        <Route path='/Login' element={auth?<TheLayout><Login /></TheLayout> : <Navigate to={'/'}/> }/>
+        <Route path='/Login' element={<TheLayout><Login /></TheLayout>}/>
         <Route path='/SignUp' element={<TheLayout><SignUp /></TheLayout>} />
         <Route path='/Dashboard' element={auth ? <Layout2><Dashboard /></Layout2> : <Navigate to={'/'} />} />
         <Route path='/Projects' element={auth ? <Layout2><Project /></Layout2> : <Navigate to={'/'} />} />

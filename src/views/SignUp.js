@@ -45,9 +45,10 @@ function SignUp() {
 
                 if(res.status === 400 || !res){
                     message.error("Already used Credentials")
-                    resetForm();
+                    
                 }else {
                     message.success("Registered Successfully");
+                    resetForm({});
                 }
             }
             catch(error){

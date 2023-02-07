@@ -57,8 +57,7 @@ function Login() {
                                     }
                                     else {
                                         message.success("Login Successfull");
-                                        window.location.reload();
-                                        history.pushState('/');
+                                        window.location.replace('/Dashboard');
                                     }
                                 } catch (error) {
                                     console.log(error);

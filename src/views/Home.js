@@ -27,18 +27,6 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className="container">
-                {/* <div className="image flex flex-col justify-center items-center w-[100%]">
-                    <img className="image md:auto rounded-2xl w-[70%]" src={Image1} />
-                    <div className="top-left md:absolute top-15 left-[12rem] md:basline">
-                        <h1 className="text-2xl md:text-4xl md:items-left md:w-10 mx-2 text-white font-bold">Let's Rebuild Pakistan</h1>
-                        <div className="button mx-[10px] my-5">
-                            <Button
-                                style={{ background: "#38848c", color: "white", fontWeight: "medium", borderRadius: "10" }}>
-                                Donate Now
-                            </Button>
-                        </div>
-                    </div>
-                </div> */}
                 <ImageSlider/>
                 <div className="heading text-center my-10">
                     <h1>
