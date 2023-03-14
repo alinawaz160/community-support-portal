@@ -1,89 +1,123 @@
 import React, { useEffect, useState } from "react";
 import ProTable from "@ant-design/pro-table";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem } from "@mui/material";
 import en_US from 'antd/locale/en_US';
 import { ConfigProvider, Upload, message, Image, Form } from 'antd';
 import { ModalForm, ProFormSelect, ProFormText, ProFormTextArea } from "@ant-design/pro-form";
 import { DeleteOutlineRounded, InboxOutlined } from "@mui/icons-material";
 import axios from "axios";
 import moment from "moment";
-
+import ArrowDropDownCircleTwoToneIcon from '@mui/icons-material/ArrowDropDownCircleTwoTone';
+import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
+import TuneTwoToneIcon from '@mui/icons-material/TuneTwoTone';
 function Project() {
 
   const [createModalVisible, handleModalVisible] = useState(false);
-  const [imageFile, setImageFile] = useState("");
-  const { Dragger } = Upload;
+  const [createModalVisible2, handleModalVisible2] = useState(false);
+  const [updateModal, setUpdateModal] = useState([]);
   const [form] = Form.useForm();
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
 
-  const props = {
-    name: "file",
-    multiple: false,
-    beforeUpload(file) {
-      const isImage = file.type === "image/png" || file.type === "image/jpg" || file.type === "image/jpeg";
-      if (!isImage) {
-        message.error(`${file.name} is not a image`);
-      }
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    let response = await fetch("/getVolunteers", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const json = await response.json();
+    const activeVolunteers = json.filter(volunteer => volunteer.activeStatus == "true");
+    const volunteers = activeVolunteers.map((volunteer) => volunteer.fullname);
+    setData(volunteers);
+    console.log("volunteers", volunteers);
 
-      setImageFile(file);
-      return false;
-    },
-    onChange(info) {
-      //setfileList(info.fileList);
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
+
+    let responce = await fetch("/getNGO", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const json2 = await responce.json();
+    let activeNgo = json2.filter(ngo => ngo.activeStatus === "true");
+    let ngos = activeNgo.map((ngo) => ngo.ngoName);
+    setData2(ngos);
   };
 
   const handleDelete = async (id) => {
-    console.log("Id:",id)
-    const response = await fetch(`deleteProject/${id}`, {
-      method: 'DELETE',
-    });
-  
-    if (response.ok) {
-      message.success('Project deleted successfully');
-    } else {
-      message.error('Failed to delete project');
+    const user = window.localStorage.getItem("user");
+    if (user && user === "Admin") {
+      const response = await fetch(`deleteProject/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        message.success('Project deleted successfully');
+      } else {
+        message.error('Failed to delete project');
+      }
+    }
+    else {
+      message.info("Access Denied")
     }
   }
 
-  const handleAdd = async (data, imageFile) => {
+  const handleAdd = async (data) => {
     console.log("Adding Project");
-    const formData = new FormData();
-    formData.append("projectName", data.projectName);
-    formData.append("ngo", data.ngo);
-    formData.append("uploadDate", new Date().toISOString());
-    formData.append("description", data.description);
-    formData.append("isActive", data.isActive);
-    formData.append("image", imageFile);
-    try {
-      const res = await axios.post('/createProject', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+    const user = window.localStorage.getItem("user");
+    const payload = {
+      projectName: data.projectName,
+      ngo: data.ngo,
+      uploadDate: new Date().toISOString(),
+      description: data.description,
+      isActive: user === "Admin" ? true : false,
+      vol: data.vol
+    };
+    if (user && (user === "Admin" || user === "Ngo")) {
+      try {
+        const res = await fetch('/createProject', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (res.status === 400 || !data) {
+          message.error("Already exists");
+        } else {
+          message.success("Registered successfully");
         }
+      } catch (error) {
+        form.resetFields();
+        message.error("Something went wrong");
+        console.log(error);
+        return false;
+      }
+      return true;
+    } else {
+      message.info("Access denied");
+    }
+  };
+  const UpdateStatusProject = async (record) => {
+    try {
+      const response = await axios.put(`updateProject/${record._id}`, {
+        ...record,status: record.status === "Complete" ? true : false  
       });
-      if (res.status === 400 || !res) {
-        message.error("Already exist ")
+
+      if (response.status === 200) {
+        message.success("Updated Successfully");
+        handleModalVisible2(false);
+
       } else {
-        message.success("Registered Successfully");
+        message.error("Update Later");
+        handleModalVisible2(false);
       }
     } catch (error) {
-      message.error("Something went wrong");
-      return false;
+      console.log(error);
     }
-    form.resetFields();
-    return true;
   };
   const columns = [
     {
@@ -113,17 +147,35 @@ function Project() {
       valueType: "text",
     },
     {
-      title: "Image",
-      dataIndex: "image",
+      title: "Volunteers",
+      dataIndex: "vol",
       valueType: "avatar",
       render: (text, record, _, action) => {
-        console.log(text, record, action);
-        return [
-          <Image
-            width={50}
-            src={`${record.image}`}
-          />
-        ];
+
+        const handleMenuOpen = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+
+        const handleMenuClose = () => {
+          setAnchorEl(null);
+        };
+
+        return (
+          <>
+            <IconButton onClick={handleMenuOpen}>
+              <ArrowDropDownCircleTwoToneIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {record.vol.map((volunteer, index) => (
+                <MenuItem key={volunteer}>{volunteer}</MenuItem>
+              ))}
+            </Menu>
+          </>
+        );
       },
     },
     {
@@ -142,20 +194,67 @@ function Project() {
       },
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      hideInForm: true,
+      valueEnum: {
+        true: {
+          text: "complete",
+          status: "Success",
+        },
+        false: {
+          text: "InComplete",
+          status: "Error",
+        },
+      },
+    },
+    {
       title: "Options",
       dataIndex: "option",
       valueType: "option",
-      render: (_, record) => {
-        return [
-          <IconButton
-            onClick={() => {
-              handleDelete(record._id);
-            }}
-          >
-            <DeleteOutlineRounded />
-          </IconButton >
-        ];
-      }
+      render: (text, record, _, action) => {
+
+        const handleMenuOpen2 = (event) => {
+          setAnchorEl2(event.currentTarget);
+        };
+
+        const handleMenuClose2 = () => {
+          setAnchorEl2(null);
+        };
+
+        return (
+          <>
+            <IconButton onClick={handleMenuOpen2}>
+              <SettingsTwoToneIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl2}
+              open={Boolean(anchorEl2)}
+              onClose={handleMenuClose2}
+            >
+              <MenuItem>
+                <IconButton
+                  onClick={() => {
+                    handleModalVisible2(true);
+                    setUpdateModal(record)
+                  }}
+                >
+                  <TuneTwoToneIcon color="primary" /><h6> Edit</h6>
+                </IconButton >
+              </MenuItem>
+              <MenuItem>
+                <IconButton
+                  onClick={() => {
+                    handleDelete(record._id);
+                  }}
+                >
+                  <DeleteOutlineRounded color="error" /> Delete
+                </IconButton >
+              </MenuItem>
+            </Menu>
+          </>
+        );
+      },
     }
   ]
 
@@ -166,6 +265,7 @@ function Project() {
         <ProTable
           style={{ margin: "4rem" }}
           headerTitle={"Projects"}
+          pagination={{ defaultPageSize: 4 }}
           rowKey="id"
           search={{
             labelWidth: 120,
@@ -178,9 +278,10 @@ function Project() {
                   headers: { "Content-Type": "application/json" }
                 })
                 const json = await response.json();
-                console.log(json);
+                const activeProject = json.filter((project) => project.isActive == true)
+                console.log(activeProject);
                 return {
-                  data: json,
+                  data: activeProject,
                   success: response.status === 200
                 };
               } catch (error) {
@@ -216,13 +317,75 @@ function Project() {
           visible={createModalVisible}
           onVisibleChange={handleModalVisible}
           onFinish={async (values) => {
-            let success = await handleAdd(values, imageFile);
+            let success = await handleAdd(values);
             if (success) {
               handleModalVisible(false);
             }
           }}
           form={form}
         >
+          <ProFormText
+            rules={[
+              {
+                required: true,
+                message: "Project Name ?",
+              },
+            ]}
+            width="md"
+            label="Project Name"
+            name="projectName"
+          />
+          <ProFormSelect
+            name="ngo"
+            label="Select Ngo"
+            options={data2}
+            placeholder="Choose Ngo"
+            width="md"
+            rules={[{ required: true, message: "Kindly select Ngo!" }]}
+          />
+          <ProFormText
+            rules={[
+              {
+                required: true,
+                message: "Description ?",
+              },
+            ]}
+            width="md"
+            label="Description"
+            name="description"
+          />
+          <ProFormSelect
+            width="md"
+            name="vol"
+            label="Select Volunteers"
+            mode="multiple"
+            options={data}
+            placeholder="Choose volunteers"
+            rules={[{ required: true, message: "Please select atleast one!" }]}
+          />
+        </ModalForm>
+
+
+        <ModalForm
+          title={"Update Project"}
+          width={"400px"}
+          initialValues={updateModal}
+          visible={createModalVisible2}
+          onVisibleChange={handleModalVisible2}
+          onFinish={async (values) => {
+            let success = await UpdateStatusProject(values);
+            if (success) {
+              handleModalVisible2(false);
+            }
+          }}
+          form={form}
+        >
+          <ProFormText
+            width="md"
+            label="Project Id"
+            name="_id"
+            disabled={true}
+          />
           <ProFormText
             rules={[
               {
@@ -257,18 +420,20 @@ function Project() {
             name="description"
           />
           <ProFormSelect
-            name="isActive"
-            label="Active"
-            options={["Yes", "No"]}
-            placeholder="Select a Status"
-            rules={[{ required: true, message: "Please select Active Status!" }]}
+            name="status"
+            label="Update Status"
+            options={["InComplete","Complete"]}
+            placeholder="Choose status"
+            rules={[{ required: true, message: "Please select status!" }]}
           />
-          <Dragger accept="image/*" {...props} multiple={false}>
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Click or drag image to upload</p>
-          </Dragger>
+          <ProFormSelect
+            name="vol"
+            label="Select Volunteers"
+            mode="multiple"
+            options={data}
+            placeholder="Choose volunteers"
+            rules={[{ required: true, message: "Please select atleast one!" }]}
+          />
         </ModalForm>
       </ConfigProvider>
     </div>

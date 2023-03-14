@@ -21,13 +21,15 @@ import Typography from '@mui/material/Typography';
 import ImageSlider from "../components/ImageSlider";
 
 export default class Home extends React.Component {
-    constructor(){
+    constructor() {
         super();
     }
     render() {
         return (
-            <div className="container">
-                <ImageSlider/>
+            <div className="container mx-[5rem]">
+                <div className='slider flex items-center justify-center w-full'>
+                    <ImageSlider />
+                </div>
                 <div className="heading text-center my-10">
                     <h1>
                         <span className="partner font-bold text-[#3be7e7] text-2xl md:text-4xl">PARTNER</span>
@@ -35,9 +37,9 @@ export default class Home extends React.Component {
                     </h1>
                 </div>
                 <div className="cards mx-7">
-                    <div class="w-full md:flex">
+                    <div className="w-full md:flex">
                         <div class="w-full md:w-1/2">
-                            <div className="Image1 md:w-[3rem] items-center">
+                            <div className="Image1 md:w-[4rem] mx-5 items-center">
                                 <img src={AkhuwatLogo} className="lg:h-12" />
                             </div>
                             <div className="para text-white m-2">
@@ -47,8 +49,8 @@ export default class Home extends React.Component {
                                 </p>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2">
-                            <div className="Image2 md:w-[3rem]  items-center">
+                        <div className="w-full md:w-1/2">
+                            <div className="Image2 md:w-[10rem]  items-center">
                                 <img src={logo} className="image lg:h-12" />
                             </div>
                             <div className="para text-white m-2">
@@ -57,8 +59,8 @@ export default class Home extends React.Component {
                                 </p>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2">
-                            <div className="Image3">
+                        <div className="w-full md:w-1/2">
+                            <div className="Image3 mx-5">
                                 <img src={alkhidmatLogo} className="image h-12" />
                             </div>
                             <div className="para text-white m-2">
@@ -78,44 +80,44 @@ export default class Home extends React.Component {
                 </div>
 
                 <div>
-                    <div class="row w-full md:flex">
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={disaster} className="disaster h-[50px]"/>
-                                    <p>disaster</p>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={education} className="education h-12"/>
-                                    <p>education</p>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={community} className="community h-12"/>
-                                    <p>community</p>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={handcare} className="handcare h-12" />
-                                    <p>handcare</p>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={health} className="img5 h-12"/>
-                                    <p>health</p>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2">
-                                <div className="items flex flex-col justify-around items-center">
-                                    <img src={tree} className="tree h-12" />
-                                    <p>tree</p>
-                                </div>
+                    <div className="row w-full md:flex">
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={disaster} className="disaster h-[50px]" />
+                                <p>disaster</p>
                             </div>
                         </div>
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={education} className="education h-12" />
+                                <p>education</p>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={community} className="community h-12" />
+                                <p>community</p>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={handcare} className="handcare h-12" />
+                                <p>handcare</p>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={health} className="img5 h-12" />
+                                <p>health</p>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <div className="items flex flex-col justify-around items-center">
+                                <img src={tree} className="tree h-12" />
+                                <p>tree</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="heading text-center my-10">
@@ -126,9 +128,9 @@ export default class Home extends React.Component {
                 </div>
 
                 <div className="row w-full md:flex md:justify-around md:items-center">
-                    <div class="w-full md:w-1/2"></div>
-                    <div class="w-full md:w-1/2">
-                        <Card sx={{ maxWidth: 345, background: "#306c74", borderRadius:"15px"}}>
+                    <div className="w-full md:w-1/2"></div>
+                    <div className="w-full md:w-1/2">
+                        <Card sx={{ maxWidth: 345, background: "#306c74", borderRadius: "15px" }}>
                             <CardMedia
                                 sx={{ height: 140 }}
                                 image={Image2}
@@ -148,9 +150,9 @@ export default class Home extends React.Component {
                             </CardActions>
                         </Card>
                     </div>
-                    <div class="w-full md:w-1/2"></div>
-                    <div class="w-full md:w-1/2">
-                        <Card sx={{ maxWidth: 345, background: "#306c74",borderRadius:"15px" }}>
+                    <div className="w-full md:w-1/2"></div>
+                    <div className="w-full md:w-1/2">
+                        <Card sx={{ maxWidth: 345, background: "#306c74", borderRadius: "15px" }}>
                             <CardMedia
                                 sx={{ height: 140 }}
                                 image={Image3}
@@ -170,7 +172,7 @@ export default class Home extends React.Component {
                             </CardActions>
                         </Card>
                     </div>
-                    <div class="w-full md:w-1/2"></div>
+                    <div className="w-full md:w-1/2"></div>
                 </div>
             </div>
         )
